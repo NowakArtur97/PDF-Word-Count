@@ -1,1 +1,1 @@
-# PDF-Word-Count
+# PDF-Word-Counter
