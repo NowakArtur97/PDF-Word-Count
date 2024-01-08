@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 
 @SpringBootApplication
@@ -35,7 +36,10 @@ public class PdfWordCounterApplication implements CommandLineRunner {
 
         List<Path> pdfFiles = pdfFileFounder.findPdfFiles(folderToTravers);
 
-        List<PdfInfo> pdfInfos = PdfInfoMapper.mapToPdfInfo(pdfFiles);
+        Comparator<PdfInfo> comparator = Comparator.comparing(PdfInfo::numberOfWords);
+        List<PdfInfo> pdfInfos = PdfInfoMapper.mapToPdfInfo(pdfFiles).stream()
+                .sorted(comparator)
+                .toList();
 
         LOG.info("Pdfs found: {}", pdfFiles.size());
         pdfInfos.forEach(info -> LOG.info("File {} has {} words", info.name(), info.numberOfWords()));
