@@ -13,6 +13,7 @@ An application for counting the number of words in PDF files in a folder.
 
 ## Features
 
+- Recursively find pdf files by specified path
 
 ## Built With
 

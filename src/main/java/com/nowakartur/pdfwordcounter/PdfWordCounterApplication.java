@@ -35,7 +35,10 @@ public class PdfWordCounterApplication implements CommandLineRunner {
 
         List<Path> pdfFiles = pdfFileFounder.findPdfFiles(folderToTravers);
 
+        List<PdfInfo> pdfInfos = PdfInfoMapper.mapToPdfInfo(pdfFiles);
+
         LOG.info("Pdfs found: {}", pdfFiles.size());
+        pdfInfos.forEach(info -> LOG.info("File {} has {} words", info.name(), info.numberOfWords()));
         LOG.info("End");
     }
 }

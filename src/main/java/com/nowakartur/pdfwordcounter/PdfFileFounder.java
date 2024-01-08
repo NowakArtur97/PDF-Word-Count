@@ -6,18 +6,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
+import java.util.function.BiPredicate;
+
+import static com.nowakartur.pdfwordcounter.PdfInfoMapper.PDF_EXTENSION;
 
 @Component
 public class PdfFileFounder {
 
-    private static final String PDF_EXTENSION = ".pdf";
-
     public List<Path> findPdfFiles(String folderToTravers) throws IOException {
         Path path = Paths.get(folderToTravers);
-        return Files.find(path, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+        return Files.find(path, Integer.MAX_VALUE, isRegularFile())
                 .filter(this::isPdfFile)
                 .toList();
+    }
+
+    private BiPredicate<Path, BasicFileAttributes> isRegularFile() {
+        return (filePath, fileAttr) -> fileAttr.isRegularFile();
     }
 
     private boolean isPdfFile(Path f) {
