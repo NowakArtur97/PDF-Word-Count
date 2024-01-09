@@ -33,7 +33,16 @@ public class PdfWordCounterApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws IOException {
         LOG.info("Start");
+        long startTime = System.currentTimeMillis();
+        countWordsInPdfFiles();
 
+        long endTime = System.currentTimeMillis();
+        long totalTime = (endTime - startTime) / 1000;
+        LOG.info("Application running time: {}s", totalTime);
+        LOG.info("End");
+    }
+
+    private void countWordsInPdfFiles() throws IOException {
         List<Path> pdfFiles = pdfFileFounder.findPdfFiles(folderToTraver);
 
         Comparator<PdfInfo> comparator = Comparator.comparing(PdfInfo::numberOfWords);
@@ -42,7 +51,6 @@ public class PdfWordCounterApplication implements CommandLineRunner {
                 .toList();
 
         LOG.info("Pdfs found: {}", pdfFiles.size());
-        pdfInfos.forEach(info -> LOG.info("File {} has {} words", info.name(), info.numberOfWords()));
-        LOG.info("End");
+        pdfInfos.forEach(info -> LOG.info("{} - {} words", info.name(), info.numberOfWords()));
     }
 }
