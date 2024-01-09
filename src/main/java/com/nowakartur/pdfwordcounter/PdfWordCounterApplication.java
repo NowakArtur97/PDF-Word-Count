@@ -19,11 +19,11 @@ public class PdfWordCounterApplication implements CommandLineRunner {
 
     private final PdfFileFounder pdfFileFounder;
 
-    private final String folderToTravers;
+    private final String folderToTraver;
 
-    public PdfWordCounterApplication(PdfFileFounder pdfFileFounder, @Value("${app.folder-to-travers}") String folderToTravers) {
+    public PdfWordCounterApplication(PdfFileFounder pdfFileFounder, @Value("${app.folder-to-traver}") String folderToTraver) {
         this.pdfFileFounder = pdfFileFounder;
-        this.folderToTravers = folderToTravers;
+        this.folderToTraver = folderToTraver;
     }
 
     public static void main(String[] args) {
@@ -34,7 +34,7 @@ public class PdfWordCounterApplication implements CommandLineRunner {
     public void run(String... args) throws IOException {
         LOG.info("Start");
 
-        List<Path> pdfFiles = pdfFileFounder.findPdfFiles(folderToTravers);
+        List<Path> pdfFiles = pdfFileFounder.findPdfFiles(folderToTraver);
 
         Comparator<PdfInfo> comparator = Comparator.comparing(PdfInfo::numberOfWords);
         List<PdfInfo> pdfInfos = PdfInfoMapper.mapToPdfInfo(pdfFiles).stream()

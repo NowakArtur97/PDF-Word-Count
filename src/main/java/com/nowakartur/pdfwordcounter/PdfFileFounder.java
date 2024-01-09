@@ -15,8 +15,8 @@ import static com.nowakartur.pdfwordcounter.PdfInfoMapper.PDF_EXTENSION;
 @Component
 public class PdfFileFounder {
 
-    public List<Path> findPdfFiles(String folderToTravers) throws IOException {
-        Path path = Paths.get(folderToTravers);
+    public List<Path> findPdfFiles(String folderToTraver) throws IOException {
+        Path path = Paths.get(folderToTraver);
         return Files.find(path, Integer.MAX_VALUE, isRegularFile())
                 .filter(this::isPdfFile)
                 .toList();
