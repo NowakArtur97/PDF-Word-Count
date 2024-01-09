@@ -29,4 +29,14 @@ public class PdfFileFounderTest {
 
         Assertions.assertEquals(5, actualPdfFiles.size());
     }
+
+    @Test
+    public void whenCountFilesWithMultipleNestedDirectories_shouldReturnCorrectNumberOfFiles() throws IOException {
+        PdfFileFounder pdfFileFounder = new PdfFileFounder();
+        String directoryWithTestFiles = Paths.get("src", "test", "resources").toAbsolutePath().toString();
+
+        List<Path> actualPdfFiles = pdfFileFounder.findPdfFiles(directoryWithTestFiles);
+
+        Assertions.assertEquals(8, actualPdfFiles.size());
+    }
 }
